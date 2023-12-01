@@ -12,13 +12,13 @@ require 'vendor/autoload.php';
 $mail = new PHPMailer(true);
 $mail2 = new PHPMailer(true);
 
-// $name = $_POST['name'];
-// $subject = $_POST['subject'];
-// $email = $_POST['email'];
+$name = $_POST['name'];
+$subject = $_POST['subject'];
+$email = $_POST['email'];
 
-$name = 'Teste';
-$subject = 'Teste';
-$email = 'pedrokaow@gmail.com';
+// $name = 'Teste';
+// $subject = 'Teste';
+// $email = 'pedrokaow@gmail.com';
 
 
 try {
