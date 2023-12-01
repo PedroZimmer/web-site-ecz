@@ -12,9 +12,14 @@ require 'vendor/autoload.php';
 $mail = new PHPMailer(true);
 $mail2 = new PHPMailer(true);
 
-$name = $_POST['name'];
-$subject = $_POST['subject'];
-$email = $_POST['email'];
+// $name = $_POST['name'];
+// $subject = $_POST['subject'];
+// $email = $_POST['email'];
+
+$name = 'Teste';
+$subject = 'Teste';
+$email = 'pedrokaow@gmail.com';
+
 
 try {
     //Server settings
@@ -43,7 +48,7 @@ try {
     // $mail->addCC('cc@example.com');
     // $mail->addBCC('bcc@example.com');
 
-    $mail2->setFrom('suporte_ecz@zohomail.com', 'Escritório Contábil Zimmermann');
+    $mail2->setFrom('suporte_ecz@zohomail.com', 'Escritorio Contabil Zimmermann');
     $mail2->addAddress($email, $name);     //Add a recipient
     $mail2->addReplyTo('suporte_ecz@zohomail.com', 'Suporte ECZ');
     // $mail->addCC('cc@example.com');
@@ -55,9 +60,14 @@ try {
     $mail->Body    = 'Nome: ' . $name . '<br>' . 'Email: ' . $email . '<br>' . 'Assunto: ' . $subject . '<br>' . 'Hora: ' . date('d/m/Y H:i:s');
 
     //Content
+
+    
     $mail2->isHTML(true);                                  //Set email format to HTML
-    $mail2->Subject = 'Recebemos sua mensaem!';
-    $mail2->Body    = 'Olá ' . $name . ',<br><br>Recebemos sua mensagem e entraremos em contato o mais breve possível.<br><br>Atenciosamente,<br><br>Escritório Contábil Zimmermann';
+    $mail2->Subject = 'Recebemos sua mensagem!';
+    $mail2->Body    = 'Olá ' . $name . ',<br><br>Recebemos sua mensagem e entraremos em contato o mais breve possível.<br><br>Atenciosamente,<br><br><img src="https://images2.imgbox.com/3a/14/YH17MFOx_o.jpg" style="width: 35px">  <span style="font-family: Bembo; font-size: 35px;">Escritório Contábil Zimmermann</span>';
+    $mail2->Body    .= '<br>' . 'Rua 28 de Agosto, 1700, Sala 5, Centro, Guaramirim - SC, Brasil | CNPJ: 85.290.948/0001-81';
+    $mail2->Body    .= '<br>' . 'Data: ' . date('d/m/Y H:i:s');
+
 
 
     $mail2->send();
