@@ -10,6 +10,12 @@ require 'vendor/autoload.php';
 
 //Create an instance; passing `true` enables exceptions
 $mail = new PHPMailer(true);
+$mail2 = new PHPMailer(true);
+
+$name = $_POST['name'];
+$subject = $_POST['subject'];
+$email = $_POST['email'];
+$logotipo .= '<img src="live/images/logotipo_zimmermann.png" alt="Escritório Contábil Zimmermann" style="width: 100px; height: auto;">';
 
 try {
     //Server settings
@@ -28,17 +34,32 @@ try {
     // $mail->addCC('cc@example.com');
     // $mail->addBCC('bcc@example.com');
 
+    //Content
+    $mail->isHTML(true);                                  //Set email format to HTML
+    $mail->Subject = 'Alguem quer que entremos em contato.';
+
+    $mail->Body    = 'Nome: ' . $name . '<br>' . 'Email: ' . $email . '<br>' . 'Assunto: ' . $subject . '<br>' . 'Hora: ' . date('d/m/Y H:i:s');
+    // $mail->AltBody = 'Nome: ' . $name . '<br>' . 'Email: ' . $email . '<br>' . 'Assunto: ' . $subject . '<br>' . 'Hora: ' . date('d/m/Y H:i:s');
+
+    $mail2->setFrom('suporte_ecz@zohomail.com', 'Escritório Contábil Zimmermann');
+    $mail2->addAddress($email, $name);     //Add a recipient
+    $mail2->addReplyTo('suporte_ecz@zohomail.com', 'Suporte ECZ');
+    // $mail->addCC('cc@example.com');
+    // $mail->addBCC('bcc@example.com');
+
     //Attachments
     // $mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
     // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
 
     //Content
-    $mail->isHTML(true);                                  //Set email format to HTML
-    $mail->Subject = 'Alguém entrou em contato com você!';
-    $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
-    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+    $mail2->isHTML(true);                                  //Set email format to HTML
+    $mail2->Subject = 'Recebemos sua mensaem!';
+    $mail2->Body    = 'Olá ' . $name . ',<br><br>Recebemos sua mensagem e entraremos em contato o mais breve possível.<br><br>Atenciosamente,<br><br>Escritório Contábil Zimmermann';
+    $mail2->Body   .= '<br><br>' . $logotipo;
 
+    $mail2->send();
     $mail->send();
+   
     echo 'Message has been sent';
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
